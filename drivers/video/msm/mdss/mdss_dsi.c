@@ -27,6 +27,10 @@
 #include <linux/state_notifier.h>
 #endif
 
+#ifdef CONFIG_STATE_NOTIFIER
+#include <linux/state_notifier.h>
+#endif
+
 #include "mdss.h"
 #include "mdss_panel.h"
 #include "mdss_dsi.h"
@@ -1137,8 +1141,6 @@ static int mdss_dsi_event_handler(struct mdss_panel_data *pdata,
 			rc = mdss_dsi_unblank(pdata);
 
 		state_suspended = false;
-		lcd_notifier_call_chain(LCD_EVENT_ON_END, NULL);
-		
 #ifdef CONFIG_STATE_NOTIFIER
 		if (!use_fb_notifier)
 			state_notifier_call_chain(STATE_NOTIFIER_ACTIVE, NULL);
@@ -1156,8 +1158,6 @@ static int mdss_dsi_event_handler(struct mdss_panel_data *pdata,
 		rc = mdss_dsi_off(pdata);
 
 		state_suspended = true;
-		lcd_notifier_call_chain(LCD_EVENT_OFF_END, NULL);
-
 #ifdef CONFIG_STATE_NOTIFIER
 		if (!use_fb_notifier)
 			state_notifier_call_chain(STATE_NOTIFIER_SUSPEND, NULL);
