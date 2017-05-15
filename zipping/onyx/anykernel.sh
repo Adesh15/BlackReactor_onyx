@@ -302,6 +302,7 @@ dump_boot;
 backup_file default.prop;
 replace_string default.prop "ro.adb.secure=0" "ro.adb.secure=1" "ro.adb.secure=0";
 replace_string default.prop "ro.secure=0" "ro.secure=1" "ro.secure=0";
+insert_file init.qcom.rc "spectrum" before "on early-init" init.qcom.rc
 
 ############### Ramdisk customization end ###############
 
