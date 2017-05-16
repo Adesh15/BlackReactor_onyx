@@ -36,9 +36,9 @@ CERT=$KERNEL_DIR/zipping/common/sign/certificate.pem
 KEY=$KERNEL_DIR/zipping/common/sign/key.pk8
 # Device Spceifics
 export ARCH=arm
-export CROSS_COMPILE="/home/nachiket/Android/onyx/kernel/toolchains/Linaro/arm-4.9/bin/arm-linux-androideabi-"
-export KBUILD_BUILD_USER="nachiket"
-export KBUILD_BUILD_HOST="reactor"
+export CROSS_COMPILE="/home/adesh/kernel/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
+export KBUILD_BUILD_USER="adesh15"
+export KBUILD_BUILD_HOST="serveroflegends"
 
 
 ########################
@@ -57,9 +57,9 @@ echo "                    "
 echo "                                   Compiling BlackReactor-Kernel                    "
 echo "                    "
 echo -e "$green ********************************************************************************************** $nocol"
-make clean && make mrproper
+# make clean && make mrproper
 make onyx_defconfig
-make -j32
+make -j16
 if ! [ -a $KERN_IMG ];
 then
 echo -e "$red Kernel Compilation failed! Fix the errors! $nocol"
@@ -76,7 +76,7 @@ zipping() {
 cp $KERN_IMG $OUT_DIR/zImage
 cd $OUT_DIR
 zip -r -9 BR_UNSIGNED.zip *
-java -jar $SIGNAPK $CERT $KEY BR_UNSIGNED.zip BlackReactor-onyx-$REACTOR_VERSION-$(date +"%Y%m%d")-$(date +"%H%M%S").zip
+java -jar $SIGNAPK $CERT $KEY BR_UNSIGNED.zip BlackReactor-UNOFFICIAL-onyx-$REACTOR_VERSION-$(date +"%Y%m%d")-$(date +"%H%M%S").zip
 rm -f BR_UNSIGNED.zip
 }
 
